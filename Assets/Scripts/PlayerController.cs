@@ -55,6 +55,21 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         else
             isGrounded = false;
+
+        //Jump
+        if (isGrounded)
+        {
+            jumpCount = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (jumpCount == 0)
+            {
+                rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
+                jumpCount++;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -67,20 +82,7 @@ public class PlayerController : MonoBehaviour
         magnitude = Mathf.Clamp01(magnitude);
         Vector3 vel = movement * magnitude;
 
-        //Jump
-        if (isGrounded)
-        {
-            jumpCount = 0;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (jumpCount == 0 || jumpCount == 1)
-            {
-                rb.AddForce(Vector3.up * jump, ForceMode.Impulse);
-                jumpCount++;
-            }
-        }
+        
      
     }
 
